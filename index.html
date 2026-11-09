@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Guy — Hermes theme editor</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <div id="topbar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span>Hermes Guy</span>
+    <span class="spacer"></span>
+    <span class="hint">click any element on the sample screen to edit it</span>
+  </div>
+
+  <div id="stage">
+    <div id="mk-app" data-el="bg" style="background: #E3EDF9;">
+      <div id="mk-titlebar" style="color: var(--mk-statustext,#111827);"><span>● ● ●</span><span>Hermes</span></div>
+      <div id="mk-body">
+        <div id="mk-sidebar">
+          <div class="mk-section">Sessions</div>
+          <div class="mk-session active" data-el="session">Fix the flaky test</div>
+          <div class="mk-session" data-el="session">Research GRPO papers</div>
+          <div class="mk-session" data-el="session">Cool Blue theme</div>
+          <div class="mk-session" data-el="session">Deploy cron job</div>
+        </div>
+        <div id="mk-main">
+          <div class="mk-user">Can you make a light blue theme?</div>
+          <div class="mk-thinking" data-el="thinking">🧠 <span class="tick">Thinking…</span><br>Let me check the current skin and pick colors that clear contrast on a light surface.</div>
+          <div class="mk-tool" data-el="tool">&gt;_ read_file <span class="meta">· 0.4s</span></div>
+          <div class="mk-heading" data-el="heading">Designing the palette</div>
+          <div class="mk-body" data-el="body">Here's a light blue theme with dark ink text. See the <span class="mk-accent" data-el="accent">docs on skins</span> for the full schema.</div>
+          <div class="mk-success" data-el="success">✓ Skin saved to ~/.hermes/skins/</div>
+          <div class="mk-warning" data-el="warning">⚠ The gateway will repaint in ~1s</div>
+          <div class="mk-error" data-el="error">! Something failed — check the log</div>
+          <div class="mk-muted" data-el="muted">Yesterday · 3:14 PM</div>
+          <div class="mk-rule" data-el="border"></div>
+        </div>
+      </div>
+      <div id="mk-statusbar" data-el="statusbg"><span class="txt" data-el="statustext">● connected · default · v0.23.0 · 2,185 ctx</span></div>
+    </div>
+  </div>
+
+  <div id="panel">
+    <div>
+      <h2>Selected element</h2>
+      <div id="noSel">Click an element on the sample screen (left) to edit its color, font and weight.</div>
+      <div id="ctl" style="display:none; flex-direction:column; gap:12px;">
+        <div id="elName" style="font-size:12.5px;font-weight:700;color:var(--accent);"></div>
+        <div class="ctrl" id="colorCtrl">
+          <label>Color</label>
+          <div class="row"><input type="color" id="inColor"><input type="text" id="inHex" spellcheck="false"></div>
+        </div>
+        <div class="ctrl" id="fontCtrl">
+          <label>Font</label>
+          <select id="inFont"></select>
+        </div>
+        <div class="ctrl" id="weightCtrl">
+          <label>Weight</label>
+          <select id="inWeight"></select>
+        </div>
+        <div class="ctrl" id="sizeCtrl">
+          <label>Size</label>
+          <select id="inSize"></select>
+        </div>
+      </div>
+    </div>
+
+    <div id="out">
+      <div id="nameRow">
+        <label>Skin name</label>
+        <input id="skinName" value="my-theme" spellcheck="false">
+      </div>
+      <div class="btnrow">
+        <button class="btn primary" id="applyBtn">Save &amp; apply via Hermes</button>
+        <button class="btn" id="downloadBtn">Download .yaml</button>
+        <button class="btn" id="copyBtn">Copy YAML</button>
+      </div>
+      <textarea id="yamlOut" spellcheck="false"></textarea>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
