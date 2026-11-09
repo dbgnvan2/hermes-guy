@@ -65,6 +65,7 @@ Hermes Guy generates **both**:
 | Warning messages | `ui_warn` |
 | Success indicators | `ui_ok` |
 | Borders / dividers | `ui_border` |
+| Selection / highlight | `selection_bg` + `::selection` |
 | Status bar background | `status_bar_bg` |
 | Status bar text | `status_bar_text` |
 

@@ -23,6 +23,7 @@ const ELEMENTS = [
   {id:'warning',   label:'Warning messages',            kind:'text',    color:'#B45309', colorKey:'ui_warn',    font:'inherit', weight:600, size:'inherit', selector:'.text-warning'},
   {id:'success',   label:'Success indicators',          kind:'text',    color:'#15803D', colorKey:'ui_ok',      font:'inherit', weight:600, size:'inherit', selector:'.text-success'},
   {id:'border',    label:'Borders / dividers',          kind:'surface', color:'#B8C7DD', colorKey:'ui_border'},
+  {id:'selection', label:'Selection / highlight',       kind:'surface', color:'#DBEAFE', colorKey:'selection_bg', bgSelector:'::selection'},
   {id:'statusbg',  label:'Status bar background',       kind:'surface', color:'#EEF1F5', colorKey:'status_bar_bg'},
   {id:'statustext',label:'Status bar text',             kind:'text',    color:'#111827', colorKey:'status_bar_text', font:'inherit', weight:400, size:'inherit', selector:'[data-slot="status-bar"]'}
 ];
@@ -42,8 +43,7 @@ function applyToMockup() {
     const s = state[e.id];
     const nodes = document.querySelectorAll(`[data-el="${e.id}"]`);
     nodes.forEach(n => {
-      if (e.id === 'bg') { n.style.background = s.color; }
-      else if (e.id === 'statusbg') { n.style.background = s.color; }
+      if (e.id === 'bg' || e.id === 'statusbg' || e.id === 'selection') { n.style.background = s.color; }
       else if (e.id === 'border') { n.style.borderColor = s.color; }
       else {
         n.style.color = s.color;
@@ -105,6 +105,7 @@ function genCSS() {
       if (s.size !== 'inherit') props.push(`  font-size: ${s.size};`);
     }
     if (props.length && e.selector) { lines.push(`${e.selector} {`); props.forEach(p => lines.push(p)); lines.push('}'); lines.push(''); }
+    if (e.bgSelector) { lines.push(`${e.bgSelector} {`); lines.push(`  background: ${s.color};`); lines.push('}'); lines.push(''); }
   });
   return lines.join('\n').replace(/\n+$/, '');
 }
