@@ -94,6 +94,17 @@ function genCSS() {
   const varLines = [];
   ELEMENTS.forEach(e => { if (e.cssVar) varLines.push(`  ${e.cssVar}: ${state[e.id].color};`); });
   if (varLines.length) { lines.push(':root {'); varLines.forEach(l => lines.push(l)); lines.push('}'); lines.push(''); }
+  // selected session: white text for contrast on the active-row highlight
+  if (ELEMENTS.some(e => e.id === 'sessionActive')) {
+    lines.push('[class*="ui-row-active"] {');
+    lines.push('  color: #ffffff;');
+    lines.push('}');
+    lines.push('');
+    lines.push('[class*="ui-row-active"] * {');
+    lines.push('  color: #ffffff;');
+    lines.push('}');
+    lines.push('');
+  }
   // per-selector blocks (color via colorSelector, plus font/weight/size)
   ELEMENTS.forEach(e => {
     const s = state[e.id];
