@@ -65,7 +65,8 @@ Hermes Guy generates **both**:
 | Warning messages | `ui_warn` |
 | Success indicators | `ui_ok` |
 | Borders / dividers | `ui_border` |
-| Selected session (highlight) | `--ui-row-active-background` + white text |
+| Selected session (highlight) | `--ui-row-active-background` (CSS var) |
+| Selected session text | `[class*="ui-row-active"]` (CSS) |
 | Status bar background | `status_bar_bg` |
 | Status bar text | `status_bar_text` |
 

@@ -24,6 +24,7 @@ const ELEMENTS = [
   {id:'success',   label:'Success indicators',          kind:'text',    color:'#15803D', colorKey:'ui_ok',      font:'inherit', weight:600, size:'inherit', selector:'.text-success'},
   {id:'border',    label:'Borders / dividers',          kind:'surface', color:'#B8C7DD', colorKey:'ui_border'},
   {id:'sessionActive', label:'Selected session (highlight)', kind:'surface', color:'#2563EB', cssVar:'--ui-row-active-background'},
+  {id:'sessionActiveText', label:'Selected session text', kind:'text', color:'#FFFFFF', colorSelector:'[class*="ui-row-active"]', alsoDescendants:true, font:'inherit', weight:500, size:'inherit', selector:'[class*="ui-row-active"]'},
   {id:'statusbg',  label:'Status bar background',       kind:'surface', color:'#EEF1F5', colorKey:'status_bar_bg'},
   {id:'statustext',label:'Status bar text',             kind:'text',    color:'#111827', colorKey:'status_bar_text', font:'inherit', weight:400, size:'inherit', selector:'[data-slot="status-bar"]'}
 ];
@@ -94,17 +95,6 @@ function genCSS() {
   const varLines = [];
   ELEMENTS.forEach(e => { if (e.cssVar) varLines.push(`  ${e.cssVar}: ${state[e.id].color};`); });
   if (varLines.length) { lines.push(':root {'); varLines.forEach(l => lines.push(l)); lines.push('}'); lines.push(''); }
-  // selected session: white text for contrast on the active-row highlight
-  if (ELEMENTS.some(e => e.id === 'sessionActive')) {
-    lines.push('[class*="ui-row-active"] {');
-    lines.push('  color: #ffffff;');
-    lines.push('}');
-    lines.push('');
-    lines.push('[class*="ui-row-active"] * {');
-    lines.push('  color: #ffffff;');
-    lines.push('}');
-    lines.push('');
-  }
   // per-selector blocks (color via colorSelector, plus font/weight/size)
   ELEMENTS.forEach(e => {
     const s = state[e.id];
@@ -116,6 +106,7 @@ function genCSS() {
       if (s.size !== 'inherit') props.push(`  font-size: ${s.size};`);
     }
     if (props.length && e.selector) { lines.push(`${e.selector} {`); props.forEach(p => lines.push(p)); lines.push('}'); lines.push(''); }
+    if (e.alsoDescendants && e.selector) { lines.push(`${e.selector} * {`); lines.push(`  color: ${s.color};`); lines.push('}'); lines.push(''); }
   });
   return lines.join('\n').replace(/\n+$/, '');
 }
